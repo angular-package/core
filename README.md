@@ -32,6 +32,8 @@ Package core features.
 ## Table of contents
 
 * [Installation](#installation)
+* [Callback](#callback)
+* [](#)
 
 ## How angular-package understands
 
@@ -50,8 +52,6 @@ Sets
 Defines
 > Returns defined value from the method, instead of storing it in the `object`.
 
-----
-
 ## Installation
 
 Install `@angular-package/core` package with command:
@@ -60,7 +60,229 @@ Install `@angular-package/core` package with command:
 npm i --save @angular-package/core
 ```
 
-----
+## Callback
+
+### `Callback` static methods
+
+### `Callback.errorCallback()`
+
+Defines a function of a [`ResultCallback`][package-type-resultcallback] type to throw specified type of [`Error`][js-error] with the specified message on the specified `false` or `true` state. By default state is set to `false` and error is just an `Error`.
+
+```typescript
+static defineErrorCallback(
+  message: string,
+  errorType: ErrorType = '',
+  throwOnState: boolean = false
+): ResultCallback {
+  // TODO: check `message`, `type`, `on`
+  return (result: boolean, value: any): boolean => {
+    message = `${message}, got value ${
+      is.object(value) ? JSON.stringify(value) : value
+    }`;
+    if (result === throwOnState) {
+      switch (errorType) {
+        case 'range':
+          throw new RangeError(message);
+        case 'type':
+          throw new TypeError(message);
+        case 'URI':
+          throw new URIError(message);
+        default:
+          throw new Error(message);
+      }
+    }
+    return result;
+  };
+}
+```
+
+**Parameters:**
+
+| Name: type                  | Description                                                                                                                     |
+| :-------------------------- | :------------------------------------------------------------------------------------------------------------------------------ |
+| `message: string`           | The `string` type value, as a message for the provided `errorType` instance                                                     |
+| `errorType: ErrorType = ''` | Type of error to throw - `'range'`, `'type'`, `'URI'`, by default it's just an [`Error`][js-error]. By default it's set to `''` |
+| `throwOnState: boolean`     | A state of a `boolean` type on which an [`Error`][js-error] of the provided `type` should be thrown                             |
+
+**Returns:**
+
+| Returns          | Type       | Description                                                                                 |
+| :--------------- | :--------: | :------------------------------------------------------------------------------------------ |
+| `ResultCallback` | `Function` | The **return type** is a function of a [`ResultCallback`][package-type-resultcallback] type |
+
+The **return value** is a predefined `function` for use as the callback.
+
+**Usage:**
+
+```typescript
+// Example usage.
+import { Callback } from '@angular-package/core';
+
+```
+
+### `Callback.guard()`
+
+Guards the provided `callbackFunction` to be of a [`ResultCallback`][package-type-resultcallback] type.
+
+```typescript
+static guard<Type extends ResultCallback>(
+  callbackFunction: Type
+): callbackFunction is Type {
+  return guard.function(callbackFunction);
+}
+```
+
+**Generic type variables:**
+
+| Name                          | Description |
+| :---------------------------- | :---------- |
+| `Type extends ResultCallback` | Constrained with the [`ResultCallback`][package-type-resultcallback] type, variable `Type` by default of the value from the captured type of the provided `callbackFunction` linked with the return type `callbackFunction is Type` |
+
+**Parameters:**
+
+| Name: type               | Description                                                         |
+| :----------------------- | :------------------------------------------------------------------ |
+| `callbackFunction: Type` | A [`ResultCallback`][package-type-resultcallback] function to guard |
+
+**Returns:**
+
+| Returns                    | Type      | Description                                                                                                                                                                       |
+| :------------------------- | :-------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `callbackFunction is Type` | `boolean` | The **return type** is of a `boolean` type as the result of its statement indicating the provided `callbackFunction` is of a [`ResultCallback`][package-type-resultcallback] type |
+
+The **return value** is a `boolean` indicating whether or not the provided `callbackFunction` is a [`function`][js-function].
+
+**Usage:**
+
+```typescript
+// Example usage.
+import { Callback } from '@angular-package/core';
+
+```
+
+<br>
+
+### `Callback.is()`
+
+Checks if the provided `value` is an instance of [`Callback`](#callback).
+
+```typescript
+static is(value: any): value is Callback<any> {
+  return is.instance(value, Callback);
+}
+```
+
+**Parameters:**
+
+| Name: type   | Description          |
+| :----------- | :------------------- |
+| `value: any` | Any `value` to check |
+
+**Returns:**
+
+| Returns                  | Type      | Description                                                                                                                             |
+| :----------------------- | :-------: | :-------------------------------------------------------------------------------------------------------------------------------------- |
+| `value is Callback<any>` | `boolean` | The **return type** is of a `boolean` type as the result of its statement indicating the provided `value` is  a [`Callback`](#callback) |
+
+The **return value** is a `boolean` indicating whether or not the `value` is an instance of [`Callback`](#callback).
+
+**Usage:**
+
+```typescript
+// Example usage.
+import { Callback } from '@angular-package/core';
+
+```
+
+<br>
+
+### `Callback` instance methods
+
+### `Callback.prototype.getCallback()`
+
+Gets the specified callback functions from the storage.
+
+```typescript
+public getCallback<Names extends AllowedNames>(
+  names: Names[]
+): Pick<CallbackStorage, Names> {
+  return getProperties(this.#callbackStorage, names);
+}
+```
+
+**Parameters:**
+
+| Name: type       | Description                                                                |
+| :--------------- | :------------------------------------------------------------------------- |
+| `names: Names[]` | An [`Array`][js-array] of a `string` type `names` to pick from the storage |
+
+**Returns:**
+
+| Returns                        | Type     | Description                                                                                                                             |
+| :----------------------------- | :------: | :-------------------------------------------------------------------------------------------------------------------------------------- |
+| `Pick<CallbackStorage, Names>` | `object` | The **return type** is of a `boolean` type as the result of its statement indicating the provided `value` is  a [`Callback`](#callback) |
+
+The **return value** is an `object` of callback functions specified by provided `names`.
+
+**Usage:**
+
+```typescript
+// Example usage.
+import { Callback } from '@angular-package/core';
+
+```
+
+<br>
+
+### `Callback.prototype.setCallback()`
+
+Sets the callback to the storage under the given `name`.
+
+```typescript
+public setCallback<Name extends AllowNames, AllowNames extends AllowedNames>(
+  name: Name,
+  callbackFunction: ResultCallback,
+  allowNames: AllowNames[] = this.#allowedNames as AllowNames[]
+): this {
+  if (guard.string(name)) {
+    if (
+      guard.array(allowNames) &&
+      allowNames.some((allowName) => name.includes(allowName))
+    ) {
+      if (Callback.guard(callbackFunction)) {
+        Object.assign(this.#callbackStorage, {
+          [name]: callbackFunction,
+        });
+      }
+    }
+  }
+  return this;
+}
+```
+
+**Parameters:**
+
+| Name: type                         | Description                                                                                  |
+| :--------------------------------- | :------------------------------------------------------------------------------------------- |
+| `name: Name`                       | A `string` type name under which the function is stored                                      |
+| `callbackFunction: ResultCallback` | A `ResultCallback` function to handle the result of the check                                |
+| `allowNames: AllowNames[]`         | An [`Array`][js-array] of a `string` type allowed names under which the functions are stored |
+
+**Returns:**
+
+| Returns | Type     | Description                                                                                                                             |
+| :------ | :------: | :----------------------------------------------- |
+| `this`  | `object` | The **return type** is an instance of `Callback` |
+
+The **return value** is an instance of [`Callback`](#callback).
+
+**Usage:**
+
+```typescript
+// Example usage.
+import { Callback } from '@angular-package/core';
+
+```
 
 ## GIT
 
@@ -84,17 +306,16 @@ Additional labels for pre-release and build metadata are available as extensions
 
 **FAQ**
 How should I deal with revisions in the 0.y.z initial development phase?
->The simplest thing to do is start your initial development release at 0.1.0 and then increment the minor version for each subsequent release.
+
+> The simplest thing to do is start your initial development release at 0.1.0 and then increment the minor version for each subsequent release.
 
 How do I know when to release 1.0.0?
 
->If your software is being used in production, it should probably already be 1.0.0. If you have a stable API on which users have come to depend, you should be 1.0.0. If you’re worrying a lot about backwards compatibility, you should probably already be 1.0.0.
+> If your software is being used in production, it should probably already be 1.0.0. If you have a stable API on which users have come to depend, you should be 1.0.0. If you’re worrying a lot about backwards compatibility, you should probably already be 1.0.0.
 
 ## License
 
 MIT © angular-package ([license][core-license])
-
-----
 
 <!-- Funding -->
 [github-badge-sponsor]: https://img.shields.io/static/v1?label=Sponsor&message=%E2%9D%A4&logo=GitHub&link=https://github.com/sponsors/angular-package
@@ -195,3 +416,54 @@ MIT © angular-package ([license][core-license])
 
   <!-- GitHub -->
   [ui-github-readme]: https://github.com/angular-package/ui#readme
+
+<!-- Javascript  -->
+[js-array]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array
+[array-every]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/every
+[array-some]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some
+
+[classes]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes
+
+[bigint]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt
+[bigintconstructor]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt/BigInt
+
+[boolean]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean
+[booleanconstructor]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean/Boolean
+
+[js-error]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error
+
+[js-function]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Functions
+[function-rest-parameter]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/rest_parameters
+
+[js-getter]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get
+[js-object-getownpropertydescriptor]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertyDescriptor
+[js-object-getOwnpropertydescriptors]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertyDescriptors
+
+[js-setter]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/set
+
+[js-hasownproperty]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/hasOwnProperty
+
+[js-in-operator]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/in
+
+[js-number]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number
+[numberconstructor]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/Number
+
+[js-object]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object
+[js-object-define-property]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty
+
+[primitive]: https://developer.mozilla.org/en-US/docs/Glossary/Primitive
+
+[js-regexp]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp
+
+[js-string]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String
+[stringconstructor]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/String
+
+[js-symbol]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol
+[symbolconstructor]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/Symbol
+
+[js-undefined]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined
+
+<!-- Typescript -->
+[ts-classes]: https://www.typescriptlang.org/docs/handbook/2/classes.html
+[ts-function]: https://www.typescriptlang.org/docs/handbook/2/functions.html
+[ts-interface]: https://www.typescriptlang.org/docs/handbook/interfaces.html#our-first-interface
