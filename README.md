@@ -62,6 +62,46 @@ npm i --save @angular-package/core
 
 ## Callback
 
+### `Callback`
+
+Manages the callback.
+
+**Features:**
+
+*
+*
+
+Static:
+
+Instance:
+
+**Static methods:**
+
+| Methods | Description |
+| :------ | :---------- |
+| [`Callback.defineErrorCallback()`](#callbackdefineerrorcallback) | Defines a function of a [`ResultCallback`][package-type-resultcallback] type to throw specified type of [`Error`][js-error] with the specified message on the specified `false` or `true` state. By default state is set to `false` and error is just an `Error`. |
+| [`Callback.is()`](#callbackis) | Guards the provided `callbackFunction` to be of a [`ResultCallback`][package-type-resultcallback] type. |
+
+**Constructor:**
+
+| Constructor | Description |
+| :---------- | :---------- |
+| [`new Callback()`](#callback-constructor) | Initially sets the `prefix` with optional settings |
+
+**Instance properties:**
+
+| Properties                                      | Description                                                               |
+| :---------------------------------------------- | :------------------------------------------------------------------------ |
+| [`Prefix.prototype.get`](#prefixprototypeget)   | Gets the prefix defined by the `set()` method with the property `get`     |
+| [`Prefix.prototype.pick`](#prefixprototypepick) | Picks attributes `length` and `pattern` of the `prefix` from the settings |
+
+**Instance methods:**
+
+| Methods                                                         | Description                                                                                                     |
+| :-------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------- |
+| [`Prefix.prototype.configure()`](#prefixprototypeconfigure)     | Configures `callback`, `length`, and `pattern` options of the `prefix` settings. The method works if an instance is not locked by the `lock()` method |
+
+
 ### `Callback` static methods
 
 ### `Callback.defineErrorCallback()`
@@ -97,11 +137,11 @@ static defineErrorCallback(
 
 **Parameters:**
 
-| Name: type                  | Description                                                                                                                     |
-| :-------------------------- | :------------------------------------------------------------------------------------------------------------------------------ |
-| `message: string`           | The `string` type value, as a message for the provided `errorType` instance                                                     |
-| `errorType: ErrorType = ''` | Type of error to throw - `'range'`, `'type'`, `'URI'`, by default it's just an [`Error`][js-error]. By default it's set to `''` |
-| `throwOnState: boolean`     | A state of a `boolean` type on which an [`Error`][js-error] of the provided `type` should be thrown                             |
+| Name: type              | Description                                                                                                                                     |
+| :---------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------- |
+| `message: string`       | The `string` type value, as a message for the provided `errorType` instance                                                                     |
+| `errorType: ErrorType`  | Type of error to throw - `'error'`, `'range'`, `'type'`, `'URI'`, by default it's just an [`Error`][js-error]. By default it's set to `'error'` |
+| `throwOnState: boolean` | A state of a `boolean` type on which an [`Error`][js-error] of the provided `type` should be thrown                                             |
 
 **Returns:**
 
@@ -118,6 +158,8 @@ The **return value** is a predefined `function` for use as the callback.
 import { Callback } from '@angular-package/core';
 
 ```
+
+<br>
 
 ### `Callback.guard()`
 
@@ -195,6 +237,44 @@ import { Callback } from '@angular-package/core';
 
 <br>
 
+### `Callback` constructor
+
+Initialize instance of a `Callback` with the allowed names in which functions can be stored.
+
+```typescript
+constructor(allowNames: AllowedNames[]) {
+  this.#allowedNames = guard.array(allowNames)
+    ? allowNames
+    : this.#allowedNames;
+}
+```
+
+**Generic type variables:**
+
+| Name | Description |
+| :--- | :---------- |
+| `AllowedNames extends string` | Constrained with the `string` type, variable `AllowedNames` by default of the value from the captured type of the provided `allowNames` on initialize to restricts storage names in the instance |
+
+**Parameters:**
+
+| Name: type | Description |
+| :--------- | :---------- |
+| `allowNames: AllowedNames[]` | An `Array` of a `string` type names for the storage |
+
+**Returns:**
+
+The **return value** is new instance of a [`Callback`](#callback).
+
+**Usage:**
+
+```typescript
+// Example usage.
+
+new Callback(['set', 'define']);
+```
+
+<br>
+
 ### `Callback` instance methods
 
 ### `Callback.prototype.getCallback()`
@@ -208,6 +288,12 @@ public getCallback<Names extends AllowedNames>(
   return getProperties(this.#callbackStorage, names);
 }
 ```
+
+**Generic type variables:**
+
+| Name                          | Description |
+| :---------------------------- | :---------- |
+| `Type extends sfgsdfgsdfg` | Constrained with the [`ResultCallback`][package-type-resultcallback] type, variable `Type` by default of the value from the captured type of the provided `callbackFunction` linked with the return type `callbackFunction is Type` |
 
 **Parameters:**
 
@@ -259,17 +345,23 @@ public setCallback<Name extends AllowNames, AllowNames extends AllowedNames>(
 }
 ```
 
+**Generic type variables:**
+
+| Name                          | Description |
+| :---------------------------- | :---------- |
+| `Type extends asdasdasdasdasdasdasdasd` | Constrained with the [`ResultCallback`][package-type-resultcallback] type, variable `Type` by default of the value from the captured type of the provided `callbackFunction` linked with the return type `callbackFunction is Type` |
+
 **Parameters:**
 
-| Name: type                         | Description                                                                                  |
-| :--------------------------------- | :------------------------------------------------------------------------------------------- |
-| `name: Name`                       | A `string` type name under which the function is stored                                      |
-| `callbackFunction: ResultCallback` | A `ResultCallback` function to handle the result of the check                                |
-| `allowNames: AllowNames[]`         | An [`Array`][js-array] of a `string` type allowed names under which the functions are stored |
+| Name: type                         | Description                                                                                                                                                  |
+| :--------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `name: Name`                       | A `string` type name under which the function is stored                                                                                                      |
+| `callbackFunction: ResultCallback` | A `ResultCallback` function to handle the result of the check                                                                                                |
+| `allowNames: AllowNames[]`         | An [`Array`][js-array] of a `string` type allowed names under which the functions are stored. The value is restricted by provided `allowNames` on initialize |
 
 **Returns:**
 
-| Returns | Type     | Description                                                                                                                             |
+| Returns | Type     | Description                                      |
 | :------ | :------: | :----------------------------------------------- |
 | `this`  | `object` | The **return type** is an instance of `Callback` |
 
