@@ -2,15 +2,15 @@
 
 Useful and simple to use packages based on the [angular.io][angulario].
 
-| Package (GitHub README)              | Description                                        | Status                                                       | Npm                        |
-| :----------------------------------- | :------------------------------------------------- | :----------------------------------------------------------: | :------------------------: |
-| [change-detection][cd-github-readme] | Improve application performance.                   | [![npm version][cd-npm-badge-svg]][cd-npm-badge]             | [npm][cd-npm-readme]       |
-| [core][core-github-readme]           | Package core features.                             | [![npm version][core-npm-badge-svg]][core-npm-badge]         | [npm][core-npm-readme]     |
-| [prism][prism-github-readme]         | `Prism` highlighter module.                        | [![npm version][prism-npm-badge-svg]][prism-npm-badge]       | [npm][cd-npm-readme]       |
-| [property][property-github-readme]   | Features to handle object properties.              | [![npm version][property-npm-badge-svg]][property-npm-badge] | [npm][property-npm-readme] |
-| [reactive][reactive-github-readme]   | Automatize process of creating some rxjs features. | [![npm version][reactive-npm-badge-svg]][reactive-npm-badge] | [npm][reactive-npm-readme] |
-| [ui][ui-github-readme]               | User interface.                                    | *In Progress*                                                |                                         |
-| [type][type-github-readme]           | Common types, type guards and type checkers.       | [![npm version][type-npm-badge-svg]][type-npm-badge]         | [npm][type-npm-readme]     |
+| Package                              | Description                                        | Status                                                       |
+| :----------------------------------- | :------------------------------------------------- | :----------------------------------------------------------: |
+| [change-detection][cd-github-readme] | Improve application performance.                   | [![npm version][cd-npm-badge-svg]][cd-npm-badge]             |
+| [core][core-github-readme]           | Package core features.                             | [![npm version][core-npm-badge-svg]][core-npm-badge]         |
+| [prism][prism-github-readme]         | `Prism` highlighter module.                        | [![npm version][prism-npm-badge-svg]][prism-npm-badge]       |
+| [property][property-github-readme]   | Features to handle object properties.              | [![npm version][property-npm-badge-svg]][property-npm-badge] |
+| [reactive][reactive-github-readme]   | Automatize process of creating some rxjs features. | [![npm version][reactive-npm-badge-svg]][reactive-npm-badge] |
+| [ui][ui-github-readme]               | User interface.                                    | *In Progress*                                                |
+| [type][type-github-readme]           | Common types, type guards and type checkers.       | [![npm version][type-npm-badge-svg]][type-npm-badge]         |
 
 ## angular-package/core
 
