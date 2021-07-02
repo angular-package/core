@@ -64,7 +64,7 @@ npm i --save @angular-package/core
 
 ### `Callback` static methods
 
-### `Callback.errorCallback()`
+### `Callback.defineErrorCallback()`
 
 Defines a function of a [`ResultCallback`][package-type-resultcallback] type to throw specified type of [`Error`][js-error] with the specified message on the specified `false` or `true` state. By default state is set to `false` and error is just an `Error`.
 
@@ -74,7 +74,6 @@ static defineErrorCallback(
   errorType: ErrorType = '',
   throwOnState: boolean = false
 ): ResultCallback {
-  // TODO: check `message`, `type`, `on`
   return (result: boolean, value: any): boolean => {
     message = `${message}, got value ${
       is.object(value) ? JSON.stringify(value) : value
