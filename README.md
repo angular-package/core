@@ -29,11 +29,9 @@ Package core features.
 [![GitHub sponsors][github-badge-sponsor]][github-sponsor-link]
 [![Support me on Patreon][patreon-badge]][patreon-link]
 
-----
+## Table of contents
 
 * [Installation](#installation)
-
-----
 
 ## How angular-package understands
 
