@@ -2,14 +2,14 @@
 
 Useful and simple to use packages based on the [angular.io][angulario].
 
-| Package          | Description                                  | Status                                                       | Readme                                                         |
-| :--------------- | :------------------------------------------- | :----------------------------------------------------------: | :------------------------------------------------------------- |
-| change-detection | Improve application performance.             | [![npm version][cd-npm-badge-svg]][cd-npm-badge]             | [GitHub][cd-github-readme] \| [npm][cd-npm-readme]             |
-| core             | Package core features.                       | [![npm version][core-npm-badge-svg]][core-npm-badge]         | [GitHub][core-github-readme] \| [npm][core-npm-readme]         |
-| prism            | `Prism` highlighter module.                  | [![npm version][prism-npm-badge-svg]][prism-npm-badge]       | [GitHub][prism-github-readme] \| [npm][cd-npm-readme]          |
-| property         | Features to handle object properties.        | [![npm version][property-npm-badge-svg]][property-npm-badge] | [GitHub][property-github-readme] \| [npm][property-npm-readme] |
-| ui               | User interface.                              | *In Progress*                                                | [GitHub][ui-github-readme]                                     |
-| type             | Common types, type guards and type checkers. | [![npm version][type-npm-badge-svg]][type-npm-badge]         | [GitHub][type-github-readme] \| [npm][type-npm-readme]         |
+| Package                              | Description                                  | Status                                                       | Readme                                                         |
+| :----------------------------------- | :------------------------------------------- | :----------------------------------------------------------: | :------------------------------------------------------------- |
+| [change-detection][cd-github-readme] | Improve application performance.             | [![npm version][cd-npm-badge-svg]][cd-npm-badge]             | [GitHub][cd-github-readme] \| [npm][cd-npm-readme]             |
+| [core][core-github-readme]           | Package core features.                       | [![npm version][core-npm-badge-svg]][core-npm-badge]         | [GitHub][core-github-readme] \| [npm][core-npm-readme]         |
+| [prism][prism-github-readme]         | `Prism` highlighter module.                  | [![npm version][prism-npm-badge-svg]][prism-npm-badge]       | [GitHub][prism-github-readme] \| [npm][cd-npm-readme]          |
+| [property][property-github-readme]   | Features to handle object properties.        | [![npm version][property-npm-badge-svg]][property-npm-badge] | [GitHub][property-github-readme] \| [npm][property-npm-readme] |
+| [ui][ui-github-readme]               | User interface.                              | *In Progress*                                                | [GitHub][ui-github-readme]                                     |
+| [type][type-github-readme]           | Common types, type guards and type checkers. | [![npm version][type-npm-badge-svg]][type-npm-badge]         | [GitHub][type-github-readme] \| [npm][type-npm-readme]         |
 
 ## angular-package/core
 
@@ -51,24 +51,15 @@ Package core features.
   [core-forks]: https://github.com/angular-package/core/network
   [core-license]: https://github.com/angular-package/core/blob/master/LICENSE
   [core-stars]: https://github.com/angular-package/core/stargazers
-  <!-- GitHub -->
-  [core-github-readme]: https://github.com/angular-package/core#readme
-  <!-- npm: badges -->
+
+<!-- Package: core -->
+  <!-- npm -->
   [core-npm-badge-svg]: https://badge.fury.io/js/%40angular-package%2Fcore.svg
   [core-npm-badge]: https://badge.fury.io/js/%40angular-package%2Fcore
   [core-npm-readme]: https://www.npmjs.com/package/@angular-package/core#readme
 
-<!-- Package: type -->
-  <!-- npm -->
-  [type-npm-badge-svg]: https://badge.fury.io/js/%40angular-package%2Ftype.svg
-  [type-npm-badge]: https://badge.fury.io/js/%40angular-package%2Ftype
-  [type-npm-readme]: https://www.npmjs.com/package/@angular-package/type#readme
-
   <!-- GitHub -->
-  [type-github-readme]: https://github.com/angular-package/type#readme
-
-  [package-type-resultcallback]: https://github.com/angular-package/type#resultcallback
-  [package-type-key]: https://github.com/angular-package/type#key
+  [core-github-readme]: https://github.com/angular-package/core#readme
 
 <!-- Package: change-detection -->
   <!-- npm -->
@@ -97,5 +88,23 @@ Package core features.
   <!-- GitHub -->
   [property-github-readme]: https://github.com/angular-package/property#readme
 
+<!-- Package: type -->
+  <!-- npm -->
+  [type-npm-badge-svg]: https://badge.fury.io/js/%40angular-package%2Ftype.svg
+  [type-npm-badge]: https://badge.fury.io/js/%40angular-package%2Ftype
+  [type-npm-readme]: https://www.npmjs.com/package/@angular-package/type#readme
+
+  <!-- GitHub -->
+  [type-github-readme]: https://github.com/angular-package/type#readme
+
+  [package-type-resultcallback]: https://github.com/angular-package/type#resultcallback
+  [package-type-key]: https://github.com/angular-package/type#key
+
 <!-- Package: ui -->
+  <!-- npm -->
+  [ui-npm-badge-svg]: https://badge.fury.io/js/%40angular-package%2Fui.svg
+  [ui-npm-badge]: https://badge.fury.io/js/%40angular-package%2Fui
+  [ui-npm-readme]: https://www.npmjs.com/package/@angular-package/ui#readme
+
+  <!-- GitHub -->
   [ui-github-readme]: https://github.com/angular-package/ui#readme
