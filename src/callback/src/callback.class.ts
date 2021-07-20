@@ -42,17 +42,6 @@ export class Callback<AllowNames extends string> {
   #storage = new Map();
   //#endregion
 
-  /**
-   * Manages the callback function of a `ResultCallback` type.
-   * Initialize an instance of a `Callback` with the allowed names under which callback functions can be stored.
-   * @param allowNames A rest parameter of allowed names of a `string` type, under which callback functions can be stored.
-   */
-  constructor(...allowNames: AllowNames[]) {
-    this.#allowedNames = guard.array(allowNames)
-      ? new Set(allowNames)
-      : this.#allowedNames;
-  }
-
   //#region static methods
   /**
    * Defines the `function` of a `ResultCallback` type with handling the result and the provided value of its check.
@@ -106,6 +95,17 @@ export class Callback<AllowNames extends string> {
     return is.instance(value, Callback);
   }
   //#endregion
+
+  /**
+   * Manages the callback function of a `ResultCallback` type.
+   * Initialize an instance of a `Callback` with the allowed names under which callback functions can be stored.
+   * @param allowNames A rest parameter of allowed names of a `string` type, under which callback functions can be stored.
+   */
+  constructor(...allowNames: AllowNames[]) {
+    this.#allowedNames = guard.array(allowNames)
+      ? new Set(allowNames)
+      : this.#allowedNames;
+  }
 
   //#region instance methods
   /**
