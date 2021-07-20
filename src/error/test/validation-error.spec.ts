@@ -5,18 +5,17 @@ import { ValidationError } from '../src/validation-error.class';
 /**
  * Initialize `Testing`.
  */
-const testing = new Testing(true, true);
+const testing = new Testing(false, true);
 const toBe = new TestingToBeMatchers();
 /**
  * Tests.
  */
 testing.describe('ValidationError', () => {
   testing.describe('throw', () => {
+    const problem = 'My callback problem';
+    const fix = 'Possible fix does not exist';
     try {
-      throw new ValidationError({
-        problem: 'My callback problem',
-        fix: 'Possible fix does not exist',
-      });
+      throw new ValidationError({ problem, fix });
     } catch (e: any) {
       testing
         .toBeClass(ValidationError)
@@ -42,9 +41,10 @@ testing.describe('ValidationError', () => {
     });
 
     testing.it(`with the message of a \`string\` type`, () => {
-      validationError = new ValidationError('Validation error message');
+      const message = 'Validation error message';
+      validationError = new ValidationError(message);
       toBe.string(validationError.message);
-      expect(validationError.message).toContain('Validation error message');
+      expect(validationError.message).toContain(message);
     });
 
     testing.it(`with the message of the \`ErrorMessage\` interface`, () => {
@@ -76,7 +76,6 @@ testing.describe('ValidationError', () => {
       fix = 'There is no solution to the described problem.';
       problem = 'The problem has no solution.';
       errorMessage = ValidationError.defineMessage({ fix, problem });
-      console.log(errorMessage);
     });
 
     testing.it(`with the message of the \`ErrorMessage\` interface`, () => {
