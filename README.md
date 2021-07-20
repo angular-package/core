@@ -11,12 +11,13 @@ Useful and simple to use packages based on the [angular.io][angulario].
 | [reactive][reactive-github-readme]   | Automatize process of creating some rxjs features. | [![npm version][reactive-npm-badge-svg]][reactive-npm-badge] |
 | [ui][ui-github-readme]               | User interface.                                    | *In Progress*                                                |
 | [type][type-github-readme]           | Common types, type guards and type checkers.       | [![npm version][type-npm-badge-svg]][type-npm-badge]         |
+| [testing][testing-github-readme]     | Support for testing other packages.                | [![npm version][testing-npm-badge-svg]][testing-npm-badge]   |
 
-> Click on the package name to visit the package GitHub README.md
+> Click on the package name to visit the package.
 
 ## angular-package/core
 
-Package core features.
+Core features.
 
 <!-- npm badge -->
 [![npm version][core-npm-badge-svg]][core-npm-badge]
@@ -29,28 +30,61 @@ Package core features.
 [![GitHub sponsors][github-badge-sponsor]][github-sponsor-link]
 [![Support me on Patreon][patreon-badge]][patreon-link]
 
+----
+
 ## Table of contents
 
+* [Basic concepts](#basic-concepts)
+* [Skeleton](#skeleton)
 * [Installation](#installation)
-* [Callback](#callback)
-* [](#)
+* [Api](#api)
+* Package
+  * [Callback](#callback)
+  * [Component loader](#component-loader)
+  * [Error](#error)
+* [Git](#git)
+  * [Commit](#commit)
+  * [Versioning](#versioning)
+* [License](#license)
 
-## How angular-package understands
+----
+
+<br>
+
+## Basic concepts
 
 Checks
-> Is to check the provided value to be **the same** as **expected**.
+> It's to check the provided value to be **the same** as **expected**.
 
 Type guard (constrain)
 > Constrains the parameter type to **not let** input **unexpected** value in the **code editor**.
 
 Guards
-> Is a **combination** of both above, **constrains** the type of the parameter in the **code editor**, and checks its argument.
+> It's a **combination** of both above, **constrains** the type of the parameter in the **code editor**, and checks its provided argument.
 
 Sets
-> Sets the provided value in the `object`.
+> Sets the given value in the `object`.
 
 Defines
 > Returns defined value from the method, instead of storing it in the `object`.
+
+<br>
+
+## Skeleton
+
+This package was built by the [library skeleton][skeleton] which was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.1.1.
+
+Copy this package to the `packages/core` folder of the [library skeleton][skeleton] then run the commands below.
+
+### Build
+
+Run `ng build core` to build the package. The build artifacts will be stored in the `dist/` directory.
+
+### Running unit tests
+
+Run `ng test core` to execute the unit tests via [Karma](https://karma-runner.github.io).
+
+<br>
 
 ## Installation
 
@@ -60,47 +94,90 @@ Install `@angular-package/core` package with command:
 npm i --save @angular-package/core
 ```
 
+<br>
+
+## Api
+
+```typescript
+/**
+ * Callback
+ * --------
+ * @angular-package/core/callback
+ */
+import {
+  // Class.
+  Callback,
+} from '@angular-package/core';
+```
+
+```typescript
+/**
+ * Component loader.
+ * --------
+ * @angular-package/core/component-loader
+ */
+import {
+  // Class.
+  ComponentLoader,
+} from '@angular-package/core';
+```
+
+```typescript
+/**
+ * Error
+ * -----
+ * @angular-package/core/error
+ */
+import {
+  // Class.
+  ValidationError,
+  // Interface.
+  ErrorMessage,
+} from '@angular-package/core';
+```
+
+<br>
+
 ## Callback
+
+```typescript
+/**
+ * Callback
+ * --------
+ * @angular-package/core/callback
+ */
+import {
+  // Class.
+  Callback,
+} from '@angular-package/core';
+```
 
 ### `Callback`
 
 Manages the callback.
 
-**Features:**
-
-*
-*
-
-Static:
-
-Instance:
-
 **Static methods:**
 
-| Methods | Description |
-| :------ | :---------- |
-| [`Callback.defineErrorCallback()`](#callbackdefineerrorcallback) | Defines a function of a [`ResultCallback`][package-type-resultcallback] type to throw specified type of [`Error`][js-error] with the specified message on the specified `false` or `true` state. By default state is set to `false` and error is just an `Error`. |
-| [`Callback.is()`](#callbackis) | Guards the provided `callbackFunction` to be of a [`ResultCallback`][package-type-resultcallback] type. |
+| Methods                                                          | Description |
+| :--------------------------------------------------------------- | :---------- |
+| [`Callback.defineErrorCallback()`](#callbackdefineerrorcallback) | Defines a function of a [`ResultCallback`][package-type-resultcallback] type to throw specified type of [`Error`][js-error] with the specified message on the specified `false` or `true` state. By default state is set to `false` and error is just an `Error` |
+| [`Callback.guard()`](#callbackguard)                             | Guards the provided `callbackFunction` to be of a [`ResultCallback`][package-type-resultcallback] type |
+| [`Callback.is()`](#callbackis)                                   | Checks if the provided `value` is an instance of `Callback` |
 
 **Constructor:**
 
-| Constructor | Description |
-| :---------- | :---------- |
+| Constructor                               | Description |
+| :---------------------------------------- | :---------- |
 | [`new Callback()`](#callback-constructor) | Initially sets the `prefix` with optional settings |
-
-**Instance properties:**
-
-| Properties                                      | Description                                                               |
-| :---------------------------------------------- | :------------------------------------------------------------------------ |
-| [`Prefix.prototype.get`](#prefixprototypeget)   | Gets the prefix defined by the `set()` method with the property `get`     |
-| [`Prefix.prototype.pick`](#prefixprototypepick) | Picks attributes `length` and `pattern` of the `prefix` from the settings |
 
 **Instance methods:**
 
-| Methods                                                         | Description                                                                                                     |
-| :-------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------- |
-| [`Prefix.prototype.configure()`](#prefixprototypeconfigure)     | Configures `callback`, `length`, and `pattern` options of the `prefix` settings. The method works if an instance is not locked by the `lock()` method |
+| Methods                                                             | Description |
+| :------------------------------------------------------------------ | :---------- |
+| [`Callback.prototype.getCallback()`](#callbackprototypegetcallback) | Gets the specified callback functions from the storage |
+| [`Callback.prototype.setCallback()`](#callbackprototypesetcallback) | Sets the callback to the storage under the given `name` |
 
+<br>
 
 ### `Callback` static methods
 
@@ -137,16 +214,16 @@ static defineErrorCallback(
 
 **Parameters:**
 
-| Name: type              | Description                                                                                                                                     |
-| :---------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------- |
-| `message: string`       | The `string` type value, as a message for the provided `errorType` instance                                                                     |
+| Name: type              | Description |
+| :---------------------- | :---------- |
+| `message: string`       | The `string` type value, as a message for the provided `errorType` instance |
 | `errorType: ErrorType`  | Type of error to throw - `'error'`, `'range'`, `'type'`, `'URI'`, by default it's just an [`Error`][js-error]. By default it's set to `'error'` |
-| `throwOnState: boolean` | A state of a `boolean` type on which an [`Error`][js-error] of the provided `type` should be thrown                                             |
+| `throwOnState: boolean` | A state of a `boolean` type on which an [`Error`][js-error] of the provided `type` should be thrown |
 
 **Returns:**
 
-| Returns          | Type       | Description                                                                                 |
-| :--------------- | :--------: | :------------------------------------------------------------------------------------------ |
+| Returns          | Type       | Description  |
+| :--------------- | :--------: | :----------- |
 | `ResultCallback` | `Function` | The **return type** is a function of a [`ResultCallback`][package-type-resultcallback] type |
 
 The **return value** is a predefined `function` for use as the callback.
@@ -187,8 +264,8 @@ static guard<Type extends ResultCallback>(
 
 **Returns:**
 
-| Returns                    | Type      | Description                                                                                                                                                                       |
-| :------------------------- | :-------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Returns                    | Type      | Description  |
+| :------------------------- | :-------: | :----------- |
 | `callbackFunction is Type` | `boolean` | The **return type** is of a `boolean` type as the result of its statement indicating the provided `callbackFunction` is of a [`ResultCallback`][package-type-resultcallback] type |
 
 The **return value** is a `boolean` indicating whether or not the provided `callbackFunction` is a [`function`][js-function].
@@ -215,14 +292,14 @@ static is(value: any): value is Callback<any> {
 
 **Parameters:**
 
-| Name: type   | Description          |
-| :----------- | :------------------- |
+| Name: type   | Description |
+| :----------- | :---------- |
 | `value: any` | Any `value` to check |
 
 **Returns:**
 
-| Returns                  | Type      | Description                                                                                                                             |
-| :----------------------- | :-------: | :-------------------------------------------------------------------------------------------------------------------------------------- |
+| Returns                  | Type      | Description |
+| :----------------------- | :-------: | :---------- |
 | `value is Callback<any>` | `boolean` | The **return type** is of a `boolean` type as the result of its statement indicating the provided `value` is  a [`Callback`](#callback) |
 
 The **return value** is a `boolean` indicating whether or not the `value` is an instance of [`Callback`](#callback).
@@ -251,14 +328,14 @@ constructor(allowNames: AllowedNames[]) {
 
 **Generic type variables:**
 
-| Name | Description |
-| :--- | :---------- |
+| Name                          | Description |
+| :---------------------------- | :---------- |
 | `AllowedNames extends string` | Constrained with the `string` type, variable `AllowedNames` by default of the value from the captured type of the provided `allowNames` on initialize to restricts storage names in the instance |
 
 **Parameters:**
 
-| Name: type | Description |
-| :--------- | :---------- |
+| Name: type                   | Description |
+| :--------------------------- | :---------- |
 | `allowNames: AllowedNames[]` | An `Array` of a `string` type names for the storage |
 
 **Returns:**
@@ -270,7 +347,7 @@ The **return value** is new instance of a [`Callback`](#callback).
 ```typescript
 // Example usage.
 
-new Callback(['set', 'define']);
+const callback = new Callback(['set', 'define']);
 ```
 
 <br>
@@ -291,8 +368,8 @@ public getCallback<Names extends AllowedNames>(
 
 **Generic type variables:**
 
-| Name                          | Description |
-| :---------------------------- | :---------- |
+| Name                       | Description |
+| :------------------------- | :---------- |
 | `Type extends sfgsdfgsdfg` | Constrained with the [`ResultCallback`][package-type-resultcallback] type, variable `Type` by default of the value from the captured type of the provided `callbackFunction` linked with the return type `callbackFunction is Type` |
 
 **Parameters:**
@@ -303,8 +380,8 @@ public getCallback<Names extends AllowedNames>(
 
 **Returns:**
 
-| Returns                        | Type     | Description                                                                                                                             |
-| :----------------------------- | :------: | :-------------------------------------------------------------------------------------------------------------------------------------- |
+| Returns                        | Type     | Description |
+| :----------------------------- | :------: | :---------- |
 | `Pick<CallbackStorage, Names>` | `object` | The **return type** is of a `boolean` type as the result of its statement indicating the provided `value` is  a [`Callback`](#callback) |
 
 The **return value** is an `object` of callback functions specified by provided `names`.
@@ -353,16 +430,16 @@ public setCallback<Name extends AllowNames, AllowNames extends AllowedNames>(
 
 **Parameters:**
 
-| Name: type                         | Description                                                                                                                                                  |
-| :--------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `name: Name`                       | A `string` type name under which the function is stored                                                                                                      |
-| `callbackFunction: ResultCallback` | A `ResultCallback` function to handle the result of the check                                                                                                |
+| Name: type                         | Description |
+| :--------------------------------- | :---------- |
+| `name: Name`                       | A `string` type name under which the function is stored |
+| `callbackFunction: ResultCallback` | A `ResultCallback` function to handle the result of the check |
 | `allowNames: AllowNames[]`         | An [`Array`][js-array] of a `string` type allowed names under which the functions are stored. The value is restricted by provided `allowNames` on initialize |
 
 **Returns:**
 
-| Returns | Type     | Description                                      |
-| :------ | :------: | :----------------------------------------------- |
+| Returns | Type     | Description |
+| :------ | :------: | :---------- |
 | `this`  | `object` | The **return type** is an instance of `Callback` |
 
 The **return value** is an instance of [`Callback`](#callback).
@@ -374,6 +451,194 @@ The **return value** is an instance of [`Callback`](#callback).
 import { Callback } from '@angular-package/core';
 
 ```
+
+<br>
+
+## Component loader
+
+<br>
+
+## Error
+
+```typescript
+/**
+ * Error
+ * -----
+ * @angular-package/core/error
+ */
+import {
+  // Class.
+  ValidationError,
+  // Interface.
+  ErrorMessage,
+} from '@angular-package/core';
+```
+
+### `ValidationError`
+
+Manages an [`Error`][js-error] of the validation.
+
+**Static methods:**
+
+| Methods                                                            | Description |
+| :----------------------------------------------------------------- | :---------- |
+| [`ValidationError.defineMessage()`](#validationerrordefinemessage) | Defines the error message of a [`string`][js-string] type from the provided `message` of an [`object`][js-object] |
+
+**Constructor:**
+
+| Constructor                                         | Description |
+| :-------------------------------------------------- | :---------- |
+| [`ValidationError()`](#validationerror-constructor) | Creates a new instance with the message. If the provided `message` is an [`object`][js-object], then its properties are assigned to the instance |
+
+<br>
+
+### `ValidationError` static properties
+
+### `ValidationError.template`
+
+Template of the error message with the replaceable `[problem]` and `[fix]`.
+
+```typescript
+static template = `Problem: [problem] => Fix: [fix]`;
+```
+
+<br>
+
+### `ValidationError` instance public properties
+
+### `ValidationError.prototype.fix`
+
+A possible solution to the described problem of a [`string`][js-string] type. By default, it's an empty [`string`][js-string].
+
+```typescript
+public fix = '';
+```
+
+<br>
+
+### `ValidationError.prototype.name`
+
+Error name of a string type that is being thrown. By default, it's `ValidationError`.
+
+```typescript
+public name = ValidationError.name;
+```
+
+<br>
+
+### `ValidationError.prototype.problem`
+
+The validation problem of a [`string`][js-string] type. By default, it's an empty string.
+
+```typescript
+public problem = '';
+```
+
+<br>
+
+### `ValidationError` static methods
+
+### `ValidationError.defineMessage()`
+
+Defines the validation error message of a [`string`][js-string] type from the provided `message` of the [`ErrorMessage`](#errormessage) interface.
+
+```typescript
+static defineMessage(message: ErrorMessage): string {
+  if (is.objectKey(message, ['fix', 'problem'])) {
+    return `Problem: ${message.problem}. ${
+        is.string(message.fix) ? `Fix: ${message.fix}` : ''
+      }`;
+  }
+  return '';
+}
+```
+
+**Parameters:**
+
+| Name: type              | Description |
+| :---------------------- | :---------- |
+| `message: ErrorMessage` | An [`object`][js-object] of the [`ErrorMessage`](#errormessage) interface to build a message of a [`string`][js-string] type. The value is checked against the proper [`object`][js-object] |
+
+**Returns:**
+
+The **return value** is a message of a `string` type created from the provided `message` of [`ErrorMessage`](#errormessage) interface, or it's an empty `string` if the provided message object isn't proper.
+
+**Usage:**
+
+```typescript
+// Example usage.
+import { ValidationError } from '@angular-package/core';
+
+const fix = 'There is no solution to the described problem.';
+const problem = 'The problem has no solution.';
+/**
+ * Returns
+ * --------
+ * Problem: The problem has no solution. => Fix: There is no solution to the described problem.
+ */
+const errorMessage = ValidationError.defineMessage({ fix, problem });
+```
+
+<br>
+
+### `ValidationError` constructor
+
+### `ValidationError()`
+
+Creates a new instance with the message. If the provided `message` is an [`object`][js-object], then its properties are assigned to the instance.
+
+```typescript
+new ValidationError(message: string | ErrorMessage) {
+  super(is.string(message) ? message : ValidationError.defineMessage(message));
+  if (is.object(message)) {
+    Object.assign(this, getProperties(message, ['fix', 'problem']));
+  }
+}
+```
+
+**Parameters:**
+
+| Name: type                        | Description |
+| :-------------------------------- | :---------- |
+| `message: string \| ErrorMessage` | The message of a `string` type or of an [`ErrorMessage`](#errormessage) interface that is used to throw with an [`error`][js-error] |
+
+**Returns:**
+
+The **return value** is an instance of [`ValidationError`](#validationerror).
+
+**Usage:**
+
+```typescript
+// Example usage.
+import { ValidationError } from '@angular-package/core';
+
+const fix = 'There is no solution to the described problem.';
+const problem = 'The problem has no solution.';
+const validationError = new ValidationError({ fix, problem });
+```
+
+<br>
+
+## Interface
+
+### ErrorMessage
+
+The shape of an [`object`][js-object] for an [`error`][js-error] message that contains a possible solution to the described problem.
+
+```typescript
+interface ErrorMessage {
+  /**
+   * Possible solution to the described problem of a `string` type.
+   */
+  fix: string;
+  /**
+   * Error problem of a `string` type.
+   */
+  problem: string;
+}
+```
+
+<br>
 
 ## GIT
 
@@ -487,6 +752,15 @@ MIT © angular-package ([license][core-license])
   <!-- GitHub -->
   [reactive-github-readme]: https://github.com/angular-package/reactive#readme
 
+<!-- Package: testing -->
+  <!-- npm -->
+  [testing-npm-badge-svg]: https://badge.fury.io/js/%40angular-package%2Ftesting.svg
+  [testing-npm-badge]: https://badge.fury.io/js/%40angular-package%2Ftesting
+  [testing-npm-readme]: https://www.npmjs.com/package/@angular-package/testing#readme
+
+  <!-- GitHub -->
+  [testing-github-readme]: https://github.com/angular-package/testing#readme
+
 <!-- Package: type -->
   <!-- npm -->
   [type-npm-badge-svg]: https://badge.fury.io/js/%40angular-package%2Ftype.svg
@@ -508,23 +782,30 @@ MIT © angular-package ([license][core-license])
   <!-- GitHub -->
   [ui-github-readme]: https://github.com/angular-package/ui#readme
 
+<!-- Jasmine -->
+[jasmine-describe]: https://jasmine.github.io/api/3.8/global.html#describe
+[jasmine-expect]: https://jasmine.github.io/api/3.8/global.html#expect
+[jasmine-it]: https://jasmine.github.io/api/3.8/global.html#it
+
 <!-- Javascript  -->
 [js-array]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array
-[array-every]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/every
-[array-some]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some
+[js-array-every]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/every
+[js-array-some]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some
 
-[classes]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes
+[js-bigint]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt
+[js-bigintconstructor]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt/BigInt
 
-[bigint]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt
-[bigintconstructor]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt/BigInt
+[js-boolean]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean
+[js-booleanconstructor]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean/Boolean
 
-[boolean]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean
-[booleanconstructor]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean/Boolean
+[js-classes]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes
+
+[js-date]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date
 
 [js-error]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error
 
 [js-function]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Functions
-[function-rest-parameter]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/rest_parameters
+[js-function-rest-parameter]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/rest_parameters
 
 [js-getter]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get
 [js-object-getownpropertydescriptor]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertyDescriptor
@@ -534,25 +815,43 @@ MIT © angular-package ([license][core-license])
 
 [js-hasownproperty]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/hasOwnProperty
 
+[js-instanceof]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/instanceof
 [js-in-operator]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/in
 
+[js-map]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map
+
+[js-null]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/null
 [js-number]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number
-[numberconstructor]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/Number
+[js-numberconstructor]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/Number
 
 [js-object]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object
 [js-object-define-property]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty
 
-[primitive]: https://developer.mozilla.org/en-US/docs/Glossary/Primitive
+[js-primitive]: https://developer.mozilla.org/en-US/docs/Glossary/Primitive
+[js-promise]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
 
+[js-rangeerror]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RangeError
+[js-referenceerror]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ReferenceError
 [js-regexp]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp
 
+[js-set]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set
+[js-storage]: https://developer.mozilla.org/en-US/docs/Web/API/Storage
 [js-string]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String
-[stringconstructor]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/String
+[js-stringconstructor]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/String
 
 [js-symbol]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol
-[symbolconstructor]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/Symbol
+[js-symbolconstructor]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/Symbol
+[js-syntaxerror]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SyntaxError
+
+[js-typeerror]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypeError
 
 [js-undefined]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined
+[js-urlerror]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/URIError
+
+[js-weakset]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakSet
+
+<!-- -->
+[karma]: http://karma-runner.github.io/0.10/index.html
 
 <!-- Typescript -->
 [ts-classes]: https://www.typescriptlang.org/docs/handbook/2/classes.html
