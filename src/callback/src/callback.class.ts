@@ -32,7 +32,7 @@ import { ErrorMessage } from '../../error/interface/error-message.interface';
 export class Callback<AllowNames extends string> {
   //#region private properties
   /**
-   * Allowed names for the instance under which callback functions can be stored.
+   * Allowed names under which callback functions can be stored.
    */
   #allowedNames = new Set();
 
@@ -48,9 +48,13 @@ export class Callback<AllowNames extends string> {
    * @param handlerFn Function to handle the `value` and the `result` of the check, before it returns the `result`.
    * @returns The return value is a function of a `ResultCallback` type with a handler function.
    */
-  static defineCallback(handlerFn: (result: boolean, value: any) => void): ResultCallback {
+  static defineCallback(
+    handlerFn: (result: boolean, value: any) => void
+  ): ResultCallback {
     return (result: boolean, value: any) => {
-      handlerFn(result, value);
+      if (is.function(handlerFn)) {
+        handlerFn(result, value);
+      }
       return result;
     };
   }
@@ -66,13 +70,11 @@ export class Callback<AllowNames extends string> {
     message: string | ErrorMessage,
     throwOnState: boolean = false
   ): ResultCallback {
-    return Callback.defineCallback(
-      (result: boolean, value: any): void => {
-        if (is.false(throwOnState) ? is.false(result) : is.true(result)) {
-          throw new ValidationError(message);
-        }
+    return Callback.defineCallback((result: boolean, value: any): void => {
+      if (is.false(throwOnState) ? is.false(result) : is.true(result)) {
+        throw new ValidationError(message);
       }
-    );
+    });
   }
 
   /**
@@ -91,7 +93,9 @@ export class Callback<AllowNames extends string> {
    * @param value The `value` of any type to check.
    * @returns The return value is a `boolean` indicating whether provided `value` is an instance of `Callback`.
    */
-  static isCallback<AllowNames extends string>(value: any): value is Callback<AllowNames> {
+  static isCallback<AllowNames extends string>(
+    value: any
+  ): value is Callback<AllowNames> {
     return is.instance(value, Callback);
   }
   //#endregion
