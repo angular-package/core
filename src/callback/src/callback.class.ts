@@ -30,10 +30,10 @@ export class Callback<AllowNames extends string> {
 
   //#region static methods
   /**
-   * Defines the `function` of a `ResultCallback` type with handling the result and the provided value of its check.
-   * @param resultHandler The function of `ResultHandler` type to handle the `value` and the `result` of the check, before it returns the
-   * `result`.
-   * @returns The return value is a function of a `ResultCallback` type with a handler function.
+   * Defines the `function` of a `ResultCallback` type that contains a `ResultHandler` function to handle the result and the provided
+   * value of its check.
+   * @param resultHandler The function of `ResultHandler` type to handle the `value` and the `result` of the check.
+   * @returns The return value is a function of a `ResultCallback` type that contains a function that handles its result.
    */
   static defineCallback(
     resultHandler: ResultHandler
