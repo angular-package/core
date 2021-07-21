@@ -189,7 +189,7 @@ Manages the callback function of a [`ResultCallback`][package-type-resultcallbac
 
 ### `Callback.defineCallback()`
 
-Defines the `function` of a [`ResultCallback`][package-type-resultcallback] type with handling the result and the provided value of its check.
+Defines the `function` of a [`ResultCallback`][package-type-resultcallback] type with function [`ResultHandler`](#resulthandler) to handle the result and the provided value of its check.
 
 ```typescript
 static defineCallback(
@@ -240,7 +240,7 @@ is.string(5, stringCallback);
 
 ### `Callback.defineErrorCallback()`
 
-Defines the function of [`ResultCallback`][package-type-resultcallback] type to throw `ValidationError` with a specified message on a state from the `throwOnState`.
+Defines the function of [`ResultCallback`][package-type-resultcallback] type to throw [`ValidationError`](#validationerror) with a specified message on a state from the `throwOnState`.
 
 ```typescript
 static defineErrorCallback(
