@@ -193,10 +193,12 @@ Defines the `function` of a [`ResultCallback`][package-type-resultcallback] type
 
 ```typescript
 static defineCallback(
-  handlerFn: (result: boolean, value: any) => void
+  resultHandler: ResultHandler
 ): ResultCallback {
   return (result: boolean, value: any) => {
-    handlerFn(result, value);
+    if (is.function(resultHandler)) {
+      resultHandler(result, value);
+    }
     return result;
   };
 }
@@ -204,9 +206,9 @@ static defineCallback(
 
 **Parameters:**
 
-| Name: type                                         | Description |
-| :------------------------------------------------- | :---------- |
-| `handlerFn: (result: boolean, value: any) => void` | Function to handle the `value` and the `result` of the check, before the `result` returns |
+| Name: type                     | Description |
+| :----------------------------- | :---------- |
+| `resultHandler: ResultHandler` | The function of [`ResultHandler`](#resulthandler) type to handle the `value` and the `result` of the check, before it returns the `result` |
 
 **Returns:**
 
