@@ -189,7 +189,7 @@ Manages the callback function of a [`ResultCallback`][package-type-resultcallbac
 
 ### `Callback.defineCallback()`
 
-Defines the `function` of a [`ResultCallback`][package-type-resultcallback] type with function [`ResultHandler`](#resulthandler) to handle the result and the provided value of its check.
+Defines the `function` of a [`ResultCallback`][package-type-resultcallback] type that contains a [`ResultHandler`](#resulthandler) function to handle the result and the provided value of its check.
 
 ```typescript
 static defineCallback(
@@ -208,7 +208,7 @@ static defineCallback(
 
 | Name: type                     | Description |
 | :----------------------------- | :---------- |
-| `resultHandler: ResultHandler` | The function of [`ResultHandler`](#resulthandler) type to handle the `value` and the `result` of the check, before it returns the `result` |
+| `resultHandler: ResultHandler` | The function of [`ResultHandler`](#resulthandler) type to handle the `value` and the `result` of the check |
 
 **Returns:**
 
@@ -216,7 +216,7 @@ static defineCallback(
 | :--------------- | :--------: | :----------- |
 | `ResultCallback` | `Function` | The **return type** is a function of a [`ResultCallback`][package-type-resultcallback] type |
 
-The **return value** is a function of a `ResultCallback` type with a handler function.
+The **return value** is a function of a [`ResultCallback`][package-type-resultcallback] type that contains a function that handles its result.
 
 **Usage:**
 
@@ -268,7 +268,7 @@ static defineErrorCallback(
 | :--------------- | :--------: | :----------- |
 | `ResultCallback` | `Function` | The **return type** is a function of a [`ResultCallback`][package-type-resultcallback] type |
 
-The **return value** is a function of a `ResultCallback` type that throws a `ValidationError` on a specified state.
+The **return value** is a function of a [`ResultCallback`][package-type-resultcallback] type that throws a [`ValidationError`](#validationerror) on a specified state.
 
 **Usage:**
 
@@ -395,13 +395,13 @@ new Callback<AllowNames extends string>(...allowNames: AllowNames[]) {
 
 | Name                          | Description |
 | :---------------------------- | :---------- |
-| `AllowedNames extends string` | A generic variable `AllowNames` that is constrained by the `string` type is used to **restrict types** of allowed names under which callback functions can be stored. By default, its value is captured from the provided `allowNames` rest parameter |
+| `AllowedNames extends string` | A generic variable `AllowNames` that is constrained by the [`string`][js-string] type and is used to **restrict** allowed names under which callback functions can be stored. By default, its value is captured from the provided `allowNames` rest parameter |
 
 **Parameters:**
 
 | Name: type                   | Description |
 | :--------------------------- | :---------- |
-| `allowNames: AllowedNames[]` | A rest parameter of a `string` type allowed names under which callback functions can be stored in the storage. Only those names given by this parameter are being checked in the instance |
+| `allowNames: AllowedNames[]` | A rest parameter of a [`string`][js-string] type allowed names under which callback functions can be stored. Only those names given by this parameter are being checked by the `isNameAllowed()` private method |
 
 **Returns:**
 
@@ -438,21 +438,21 @@ public getCallback<Name extends AllowNames>(
 
 | Name                      | Description |
 | :------------------------ | :---------- |
-| `Name extends AllowNames` | A generic `Name` variable constrained by the `AllowNames` type indicates the name under which callback function is picked from the storage. It is linked with the return type `Pick<CallbackStorage, Name>[Name]` that refers exactly to the type, which is `ResultCallback` of the callback function picked from the storage with the provided `name`. By default, its value is captured from the provided `name` |
+| `Name extends AllowNames` | A generic `Name` variable constrained by the `AllowNames` indicates the name under which callback function is picked from the storage. It is linked with the return type `Pick<CallbackStorage, Name>[Name]` that refers exactly to the type, which is [`ResultCallback`][package-type-resultcallback] of the callback function picked from the storage with the provided `name`. By default, its value is captured from the provided `name` |
 
 **Parameters:**
 
 | Name: type   | Description |
 | :----------- | :---------- |
-| `name: Name` | A [`string`][js-string] type name that is restricted by the `AllowNames` to pick callback function from the storage |
+| `name: Name` | A [`string`][js-string] type name that is restricted by the `AllowNames` to pick stored callback function |
 
 **Returns:**
 
 | Returns                             | Type       | Description |
 | :---------------------------------- | :--------: | :---------- |
-| `Pick<CallbackStorage, Name>[Name]` | `function` | The **return type** is a [`ResultCallback`][package-type-resultcallback] that is picked from the stored callback function of the given `name` |
+| `Pick<CallbackStorage, Name>[Name]` | `function` | The **return type** is a [`ResultCallback`][package-type-resultcallback] function that is picked from the stored callback function of the given `name` |
 
-The **return value** is the callback `function` of a `ResultCallback` type picked from the storage.
+The **return value** is the callback `function` of a [`ResultCallback`][package-type-resultcallback] type picked from the storage.
 
 **Usage:**
 
@@ -473,7 +473,7 @@ callback
 
 ### `Callback.prototype.setCallback()`
 
-Sets the callback function of a `ResultCallback` type to the storage under the given allowed `name` restricted by `AllowNames`.
+Sets the callback function of a [`ResultCallback`][package-type-resultcallback] type to the storage under the given allowed `name` restricted by `AllowNames`.
 
 ```typescript
 public setCallback<Name extends AllowNames>(
@@ -491,7 +491,7 @@ public setCallback<Name extends AllowNames>(
 
 | Name                      | Description |
 | :------------------------ | :---------- |
-| `Name extends AllowNames` | A generic `Name` variable constrained by the `AllowNames` type indicates the name under which callback function is stored. By default, its value is captured from the provided `name` |
+| `Name extends AllowNames` | A generic `Name` variable constrained by the `AllowNames` indicates the name under which callback function is stored. By default, its value is captured from the provided `name` |
 
 **Parameters:**
 
@@ -543,7 +543,7 @@ public setErrorCallback<Name extends AllowNames>(
 
 | Name                      | Description |
 | :------------------------ | :---------- |
-| `Name extends AllowNames` | A generic `Name` variable constrained by the `AllowNames` type indicates the name under which callback function is stored. By default, its value is captured from the provided `name` |
+| `Name extends AllowNames` | A generic `Name` variable constrained by the `AllowNames` indicates the name under which callback function is stored. By default, its value is captured from the provided `name` |
 
 **Parameters:**
 
