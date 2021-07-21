@@ -162,7 +162,7 @@ Manages the callback [`function`][js-function] of a [`ResultCallback`][package-t
 
 | Methods                                                          | Description |
 | :--------------------------------------------------------------- | :---------- |
-| [`Callback.defineCallback()`](#callbackdefinecallback)           | Defines the [`function`][js-function] of a [`ResultCallback`][package-type-resultcallback] type that contains a [`ResultHandler`](#resulthandler) [`function`][js-function] to handle the result and the provided value of its check |
+| [`Callback.defineCallback()`](#callbackdefinecallback)           | Defines the [`function`][js-function] of a [`ResultCallback`][package-type-resultcallback] type that contains a [`ResultHandler`](#resulthandler) function to handle the result and the provided value of its check |
 | [`Callback.defineErrorCallback()`](#callbackdefineerrorcallback) | Defines the [`function`][js-function] of [`ResultCallback`][package-type-resultcallback] type to throw [`ValidationError`](#validationerror) with a specified message on a state from the `throwOnState` |
 | [`Callback.guard()`](#callbackguard)                             | Guards the provided `resultCallback` to be [`ResultCallback`][package-type-resultcallback] type |
 | [`Callback.isCallback()`](#callbackiscallback)                   | Checks if the provided `value` is an instance of [`Callback`](#callback) with optional indicating allowed names under which callback functions can be stored |
@@ -189,7 +189,7 @@ Manages the callback [`function`][js-function] of a [`ResultCallback`][package-t
 
 ### `Callback.defineCallback()`
 
-Defines the [`function`][js-function] of a [`ResultCallback`][package-type-resultcallback] type that contains a [`ResultHandler`](#resulthandler) [`function`][js-function] to handle the result and the provided value of its check.
+Defines the [`function`][js-function] of a [`ResultCallback`][package-type-resultcallback] type that contains a [`ResultHandler`](#resulthandler) function to handle the result and the provided value of its check.
 
 ```typescript
 static defineCallback(
@@ -216,7 +216,7 @@ static defineCallback(
 | :--------------- | :--------: | :----------- |
 | `ResultCallback` | `Function` | The **return type** is a [`function`][js-function] of a [`ResultCallback`][package-type-resultcallback] type |
 
-The **return value** is a [`function`][js-function] of a [`ResultCallback`][package-type-resultcallback] type that contains a [`function`][js-function] that handles its result.
+The **return value** is a [`function`][js-function] of a [`ResultCallback`][package-type-resultcallback] type that contains a [`function`][js-function] of [`ResultHandler`](#resulthandler).
 
 **Usage:**
 
