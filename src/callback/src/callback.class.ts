@@ -11,23 +11,9 @@ import { ValidationError } from '../../error/src/validation-error.class';
 // Interface.
 import { CallbackStorage } from '../interface/callback-storage.interface';
 import { ErrorMessage } from '../../error/interface/error-message.interface';
+import { ResultHandler } from '../type/result-handler.type';
 /**
  * Manages the callback function of a `ResultCallback` type.
- *
- * Instance
- * - **Gets** callback function by the specified name from the storage by using the static `getCallback()` method.
- * - **Sets** the callback function of a `ResultCallback` type under the given allowed name with the `setCallback()` method.
- * - **Sets** the callback function of a `ResultCallback` type to throw a `ValidationError` under the given allowed name
- * with the `setErrorCallback()` method.
- * - **Sets** on initializing the allowed names for the callback functions under which can be stored.
- *
- * Static
- * - **Checks** the provided value of any type against an instance of a `Callback` with the `Callback.isCallback()` method.
- * - **Defines** the function of a `ResultCallback` type with handling the result and the value of its check with the
- * static `Callback.defineCallback()` method.
- * - **Defines** a function of a `ResultCallback` type to throw `ValidationError` with the specified message on the state from the
- * `throwOnState` with the static `Callback.defineErrorCallback()` method.
- * - **Guards** the provided `resultCallback` to be of a `ResultCallback` type wit the static `Callback.guard()` method.
  */
 export class Callback<AllowNames extends string> {
   //#region private properties
@@ -45,15 +31,16 @@ export class Callback<AllowNames extends string> {
   //#region static methods
   /**
    * Defines the `function` of a `ResultCallback` type with handling the result and the provided value of its check.
-   * @param handlerFn Function to handle the `value` and the `result` of the check, before it returns the `result`.
+   * @param resultHandler The function of `ResultHandler` type to handle the `value` and the `result` of the check, before it returns the
+   * `result`.
    * @returns The return value is a function of a `ResultCallback` type with a handler function.
    */
   static defineCallback(
-    handlerFn: (result: boolean, value: any) => void
+    resultHandler: ResultHandler
   ): ResultCallback {
     return (result: boolean, value: any) => {
-      if (is.function(handlerFn)) {
-        handlerFn(result, value);
+      if (is.function(resultHandler)) {
+        resultHandler(result, value);
       }
       return result;
     };
@@ -62,14 +49,14 @@ export class Callback<AllowNames extends string> {
   /**
    * Defines the function of `ResultCallback` type to throw `ValidationError` with a specified message on a state from the `throwOnState`.
    * @param message The message of string type or `ErrorMessage` interface, to throw with an error of `ValidationError`.
-   * @param throwOnState A state of `boolean` type on which an error instance of `CheckError` should be thrown. By default, it's set to
-   * `false`.
-   * @returns The return value is a `boolean` from the result of the check.
+   * @param throwOnState A state of `boolean` type on which an error of `ValidationError` should be thrown. By default, it's set to `false`.
+   * @returns The return value is a function of a `ResultCallback` type that throws a `ValidationError` on a specified state.
    */
   static defineErrorCallback(
     message: string | ErrorMessage,
     throwOnState: boolean = false
   ): ResultCallback {
+    // TODO: Use value parameter.
     return Callback.defineCallback((result: boolean, value: any): void => {
       if (is.false(throwOnState) ? is.false(result) : is.true(result)) {
         throw new ValidationError(message);
@@ -79,8 +66,8 @@ export class Callback<AllowNames extends string> {
 
   /**
    * Guards the provided `resultCallback` to be `ResultCallback` type.
-   * @param resultCallback The function of `ResultCallback` type to guard.
-   * @returns The return value is a `boolean` indicating whether provided `resultCallback` is a function.
+   * @param resultCallback The function of `ResultCallback` type, to guard.
+   * @returns The return value is a boolean indicating whether the provided `resultCallback` parameter is a function.
    */
   static guard(
     resultCallback: ResultCallback
@@ -89,12 +76,15 @@ export class Callback<AllowNames extends string> {
   }
 
   /**
-   * Checks if the provided `value` is an instance of `Callback`.
+   * Checks if the provided `value` is an instance of `Callback` with optional indicating allowed names under which callback functions can
+   * be stored.
    * @param value The `value` of any type to check.
+   * @param allowNames A rest parameter of `AllowNames` that indicates allowed names for the `Callback<AllowNames>` return type.
    * @returns The return value is a `boolean` indicating whether provided `value` is an instance of `Callback`.
    */
   static isCallback<AllowNames extends string>(
-    value: any
+    value: any,
+    ...allowNames: AllowNames[]
   ): value is Callback<AllowNames> {
     return is.instance(value, Callback);
   }
@@ -138,15 +128,15 @@ export class Callback<AllowNames extends string> {
    * Sets the callback function of a `ResultCallback` type to the storage under the given allowed `name`.
    * @param name The name of a `string` type under which the callback function is stored. The value is string-guarded and
    * checked its allowed state.
-   * @param handlerFn The function to handle the result of the check before it returns.
+   * @param resultHandler The function of `ResultHandler` to handle the result of the `ResultCallback` function before its result returns.
    * @returns The return value is an instance of `Callback`.
    */
   public setCallback<Name extends AllowNames>(
     name: Name,
-    handlerFn: (result: boolean, value: any) => void
+    resultHandler: ResultHandler
   ): this {
     if (this.isNameAllowed(name)) {
-      this.#storage.set(name, Callback.defineCallback(handlerFn));
+      this.#storage.set(name, Callback.defineCallback(resultHandler));
     }
     return this;
   }
