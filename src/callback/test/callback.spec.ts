@@ -19,7 +19,7 @@ import {
 /**
  * Initialize Testing.
  */
-const testing = new Testing(true, true);
+const testing = new Testing(false, true);
 const toBe = new TestingToBeMatchers();
 /**
  * Tests.
